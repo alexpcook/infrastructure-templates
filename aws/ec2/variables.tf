@@ -19,3 +19,13 @@ variable "public_ip" {
   type        = string
   sensitive   = true
 }
+
+variable "ami_id" {
+  description = "The AWS AMI ID to use for launching EC2 instances."
+  type        = string
+}
+
+variable "public_key_file" {
+  description = "The public key file path to use for SSH into EC2 instances."
+  type        = string
+}
