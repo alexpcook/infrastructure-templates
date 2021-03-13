@@ -39,6 +39,13 @@ resource "aws_default_route_table" "rtb" {
   }
 }
 
+resource "aws_route_table_association" "rtba" {
+  for_each = aws_subnet.subnet
+
+  route_table_id = aws_default_route_table.rtb.id
+  subnet_id      = each.value.id
+}
+
 resource "aws_default_network_acl" "nacl" {
   default_network_acl_id = aws_vpc.vpc.default_network_acl_id
   subnet_ids = [
