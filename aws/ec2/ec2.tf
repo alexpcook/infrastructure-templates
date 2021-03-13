@@ -8,7 +8,7 @@ resource "aws_instance" "vm" {
   key_name               = aws_key_pair.kp.key_name
 
   tags = {
-    Name = format("%s-vm", var.name_prefix)
+    Name = format("%s-vm-%s", var.name_prefix, each.key)
   }
 }
 
