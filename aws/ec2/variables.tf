@@ -13,3 +13,9 @@ variable "name_prefix" {
   type        = string
   default     = "apc-ec2"
 }
+
+variable "public_ip" {
+  description = "The public IP address from which to allow SSH traffic to the EC2 instances."
+  type        = string
+  sensitive   = true
+}

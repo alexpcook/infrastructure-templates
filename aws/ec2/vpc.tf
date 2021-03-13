@@ -89,3 +89,37 @@ resource "aws_subnet" "subnet" {
     Name = format("%s-subnet-%s", var.name_prefix, each.value + 1)
   }
 }
+
+resource "aws_security_group" "sg" {
+  name        = format("%s-sg", var.name_prefix)
+  description = "Allow inbound SSH from public IP and all outbound traffic."
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress = [{
+    cidr_blocks      = [format("%s/32", var.public_ip)]
+    description      = "Allow inbound SSH from public IP."
+    from_port        = 22
+    ipv6_cidr_blocks = null
+    prefix_list_ids  = null
+    protocol         = "tcp"
+    security_groups  = null
+    self             = false
+    to_port          = 22
+  }]
+
+  egress = [{
+    cidr_blocks      = ["0.0.0.0/0"]
+    description      = "Allow all outbound traffic."
+    from_port        = 0
+    ipv6_cidr_blocks = null
+    prefix_list_ids  = null
+    protocol         = -1
+    security_groups  = null
+    self             = false
+    to_port          = 0
+  }]
+
+  tags = {
+    Name = format("%s-sg", var.name_prefix)
+  }
+}
