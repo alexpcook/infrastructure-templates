@@ -41,7 +41,9 @@ resource "aws_default_route_table" "rtb" {
 
 resource "aws_default_network_acl" "nacl" {
   default_network_acl_id = aws_vpc.vpc.default_network_acl_id
-  // subnet_ids             = ["value"]
+  subnet_ids = [
+    for subnet in aws_subnet.subnet : subnet.id
+  ]
 
   ingress {
     protocol   = -1
@@ -63,5 +65,20 @@ resource "aws_default_network_acl" "nacl" {
 
   tags = {
     Name = format("%s-nacl", var.name_prefix)
+  }
+}
+
+resource "aws_subnet" "subnet" {
+  for_each = {
+    for i, az in data.aws_availability_zones.available.names : az => i
+  }
+
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = format("10.74.%s.0/24", each.value + 1)
+  availability_zone       = each.key
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = format("%s-subnet-%s", var.name_prefix, each.value + 1)
   }
 }
