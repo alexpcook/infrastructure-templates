@@ -24,4 +24,20 @@ Finally, a public key file for SSH must also be available. These can be created 
 
 ## Inputs
 
+`aws_profile` - The AWS profile to use for the deployment. The value to use depends on the format of your [AWS credentials file](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) ('default' should work fine for most users).
+
+`aws_region` - The AWS region to deploy the infrastructure to (e.g. us-west-1).
+
+`name_prefix` - A naming prefix to apply to all resources created via the module.
+
+`public_ip` - The public IPv4 address from which to allow SSH traffic to the EC2 instances.
+
+`ami_id` - The AWS AMI ID to use for the instances. Note that these are region-specific.
+
+`public_key_file` - The public key file to use for SSH to the instances.
+
+`instances` - The number of EC2 instances to provision.
+
 ## Outputs
+
+`ec2_ip_addrs` - A map of public IP addresses of the EC2 instances.
