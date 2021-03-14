@@ -9,9 +9,8 @@ variable "aws_region" {
 }
 
 variable "name_prefix" {
-  description = "The naming prefix to apply to AWS resources. Default is 'apc-ec2'."
+  description = "The naming prefix to apply to AWS resources."
   type        = string
-  default     = "apc-ec2"
 }
 
 variable "public_ip" {
