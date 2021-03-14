@@ -29,3 +29,9 @@ variable "public_key_file" {
   description = "The public key file path to use for SSH into EC2 instances."
   type        = string
 }
+
+variable "instances" {
+  description = "The number of EC2 instances to provision."
+  type        = number
+  default     = 1
+}

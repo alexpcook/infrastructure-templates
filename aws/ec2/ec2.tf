@@ -1,14 +1,18 @@
+locals {
+  total_azs = length(data.aws_availability_zones.available.names)
+}
+
 resource "aws_instance" "vm" {
-  for_each = aws_subnet.subnet
+  count = var.instances
 
   ami                    = var.ami_id
   instance_type          = "t2.micro"
-  subnet_id              = each.value.id
+  subnet_id              = aws_subnet.subnet[data.aws_availability_zones.available.names[count.index % local.total_azs]].id
   vpc_security_group_ids = [aws_security_group.sg.id]
   key_name               = aws_key_pair.kp.key_name
 
   tags = {
-    Name = format("%s-vm-%s", var.name_prefix, each.key)
+    Name = format("%s-vm-%s", var.name_prefix, count.index)
   }
 }
 
