@@ -36,6 +36,8 @@ Finally, a public key file for SSH must also be available. These can be created 
 
 `public_key_file` - The public key file to use for SSH to the instances.
 
+`user_data_script` - The user data script to run upon bootstrapping the instances.
+
 `instances` - The number of EC2 instances to provision.
 
 ## Outputs

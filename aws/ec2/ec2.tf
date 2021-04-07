@@ -10,6 +10,7 @@ resource "aws_instance" "vm" {
   subnet_id              = aws_subnet.subnet[data.aws_availability_zones.available.names[count.index % local.total_azs]].id
   vpc_security_group_ids = [aws_security_group.sg.id]
   key_name               = aws_key_pair.kp.key_name
+  user_data              = var.user_data_script != "" ? file(var.user_data_script) : ""
 
   tags = {
     Name = format("%s-vm-%s", var.name_prefix, count.index)

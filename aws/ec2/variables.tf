@@ -29,6 +29,12 @@ variable "public_key_file" {
   type        = string
 }
 
+variable "user_data_script" {
+  description = "The user data script to run upon bootstrapping the instances."
+  type        = string
+  default     = ""
+}
+
 variable "instances" {
   description = "The number of EC2 instances to provision."
   type        = number
