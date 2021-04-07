@@ -105,6 +105,16 @@ resource "aws_security_group" "sg" {
     security_groups  = null
     self             = false
     to_port          = 22
+    }, {
+    cidr_blocks      = null
+    description      = "Allow all traffic originating from within the security group."
+    from_port        = 0
+    ipv6_cidr_blocks = null
+    prefix_list_ids  = null
+    protocol         = -1
+    security_groups  = null
+    self             = true
+    to_port          = 0
   }]
 
   egress = [{
